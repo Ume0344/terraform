@@ -48,4 +48,10 @@ terraform -help
 
 11- If visited the `http://localhost:8080` through http client, nginx web server is available.
 
+12- To change the created infratructure, we just change the configuration file and run;
+
+```
+terraform apply
+```
+
 

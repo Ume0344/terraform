@@ -22,6 +22,6 @@ resource "docker_container" "nginx" {
   name  = "terraform_docker_tutorial"
   ports {
     internal = 80
-    external = 8080
+    external = 8000
   }
 }
