@@ -80,3 +80,39 @@ To see the outputs;
 ```
 terraform output
 ```
+
+
+**[How To Import Existing Infrastructure to Terraform](https://developer.hashicorp.com/terraform/tutorials/state/state-import)**
+
+1- Create a docker container;
+```
+docker run --name hashicorp-learn -d -p 8081:80 nginx:latest
+
+docker ps --filter="name=hashicorp-learn"
+
+docker inspect hashicorp-learn --format="{{.ID}}" // to get the id of container
+
+```
+
+2- After writing docker.tf to import a existing container, run to generate configuration for the resources we will import;
+```
+terraform plan -generate-config-out=generated.tf
+```
+
+Terraform used the docker provider to find a docker_container resource with the ID you specified in the import block.
+
+3- Prune the generated.tf to contain only necesary arguments. Then run to verify configuration;
+```
+terraform plan
+```
+
+4- We can change the configuration of created resource through generated.tf file. eg, We changed external port from 8081 to 8091 of the container. Now, run;
+```
+terraform apply
+```
+
+5- We can bring resources to terraform without import block such as docker images. You can do one thing; either creating import block or create a resource separately in docker.tf file. We can find the name of image based on this command in docker and then refernce in generated.tf file for image instead of SHA256 hash id;
+```
+ docker image inspect -f {{.RepoTags}} `docker inspect --format="{{.Image}}" hashicorp-learn`
+``` 
+*Do not replace the image value in the docker_container.web resource yet, or Terraform will destroy and recreate your container. Since Terraform did not yet load the docker_image.nginx resource into state, it does not have an image ID to compare with the hardcoded one, which will force replacement. The image resource must exist in state before you can reference it.*
