@@ -74,3 +74,9 @@ terraform destroy
 ```
 terraform apply -var "container_name=YetAnotherName"
 ```
+
+15- To get sepcific outputs like image id or container id, we can use outputs.tf file and define the outputs there.
+To see the outputs;
+```
+terraform output
+```
