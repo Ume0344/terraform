@@ -32,26 +32,45 @@ terraform -help
 4- Create main.tf file
 
 5- To initialize directory, Run,
- ```terraform init``` .
+```
+terraform init
+```
 
 6- To format and validate the configuration,
+```
+terraform fmt && terraform validate
+```
 
-`terraform fmt && terraform validate`.
-
-7- Create the infrasturcture by; `terraform apply`.
-
-8- It prompts a question; write 'yes'.
-
-9- Inspect the state `terraform show`.
-
-10- To list the resources in project's state; `terraform state list`.
-
-11- If visited the `http://localhost:8080` through http client, nginx web server is available.
-
-12- To change the created infratructure, we just change the configuration file and run;
-
+7- Create the infrasturcture by; 
 ```
 terraform apply
 ```
 
+8- It prompts a question; write 'yes'.
 
+9- Inspect the state 
+```
+terraform show
+```
+
+10- To list the resources in project's state; 
+```
+terraform state list
+```
+
+11- If visited the `http://localhost:8080` through http client, nginx web server is available.
+
+12- To change the created infratructure, we just change the configuration file and run;
+```
+terraform apply
+```
+
+13- To destroy;
+```
+terraform destroy
+```
+
+14- To include variables in tf file, create a variable.tf file and add a variable for container name. We can now use this container name in main.tf. We can also do it this;
+```
+terraform apply -var "container_name=YetAnotherName"
+```
